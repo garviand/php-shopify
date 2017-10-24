@@ -1,6 +1,12 @@
 {
     "name": "garviand/php-shopify",
     "description": "PHP SDK for Shopify API",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/garviand/php-shopify"
+        }
+    ],
     "keywords": ["PHP","Shopify","SDK"],
     "homepage": "https://github.com/phpclassic/php-shopify",
     "type": "library",
