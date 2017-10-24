@@ -7,6 +7,8 @@
 
 namespace PHPShopify;
 
+require dirname(__FILE__).'/../../../ccampbell/chromephp/ChromePhp.php';
+
 /**
  * Class HttpRequestJson
  *
@@ -66,12 +68,13 @@ class HttpRequestJson
      */
     public static function get($url, $httpHeaders = array())
     {
+
         self::prepareRequest($httpHeaders);
 
         ShopifySDK::checkApiCallLimit();
-        $response = CurlRequest::get($url, self::$httpHeaders);
+        $response = wp_remote_get($url, self::$httpHeaders);
 
-        return self::processResponse($response);
+        return self::processResponse($response['body']);
     }
 
     /**
@@ -88,9 +91,9 @@ class HttpRequestJson
         self::prepareRequest($httpHeaders, $dataArray);
 
         ShopifySDK::checkApiCallLimit();
-        $response = CurlRequest::post($url, self::$postDataJSON, self::$httpHeaders);
+        $response = wp_remote_get($url, self::$httpHeaders);
 
-        return self::processResponse($response);
+        return self::processResponse($response['body']);
     }
 
     /**
@@ -107,9 +110,9 @@ class HttpRequestJson
         self::prepareRequest($httpHeaders, $dataArray);
 
         ShopifySDK::checkApiCallLimit();
-        $response = CurlRequest::put($url, self::$postDataJSON, self::$httpHeaders);
+        $response = wp_remote_get($url, self::$httpHeaders);
 
-        return self::processResponse($response);
+        return self::processResponse($response['body']);
     }
 
     /**
@@ -125,9 +128,9 @@ class HttpRequestJson
         self::prepareRequest($httpHeaders);
 
         ShopifySDK::checkApiCallLimit();
-        $response = CurlRequest::delete($url, self::$httpHeaders);
+        $response = wp_remote_get($url, self::$httpHeaders);
 
-        return self::processResponse($response);
+        return self::processResponse($response['body']);
     }
 
     /**
@@ -139,7 +142,6 @@ class HttpRequestJson
      */
     protected static function processResponse($response)
     {
-
         return json_decode($response, true);
     }
 
