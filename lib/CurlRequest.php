@@ -39,22 +39,8 @@ class CurlRequest
     protected static function init($url, $httpHeaders = array())
     {
         // Create Curl resource
-        $ch = curl_init();
 
-        // Set URL
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        //Return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $headers = array();
-        foreach ($httpHeaders as $key => $value) {
-            $headers[] = "$key: $value";
-        }
-        //Set HTTP Headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        return $ch;
+        return null;
 
     }
 

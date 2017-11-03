@@ -479,7 +479,7 @@ abstract class ShopifyResource
             $httpCreated = 201; //Create Successful.
 
             //should be null if any other library used for http calls
-            $httpCode = null
+            $httpCode = null;
 
             if ($httpCode != null && $httpCode != $httpOK && $httpCode != $httpCreated) {
                 throw new Exception\CurlException("Request failed with HTTP Code $httpCode.");

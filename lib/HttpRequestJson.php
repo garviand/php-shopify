@@ -7,8 +7,6 @@
 
 namespace PHPShopify;
 
-require dirname(__FILE__).'/../../../ccampbell/chromephp/ChromePhp.php';
-
 /**
  * Class HttpRequestJson
  *
@@ -72,7 +70,28 @@ class HttpRequestJson
         self::prepareRequest($httpHeaders);
 
         ShopifySDK::checkApiCallLimit();
-        $response = wp_remote_get($url, self::$httpHeaders);
+
+        $params = parse_url($url);
+
+        $basic = base64_encode($params['user'] . ':' . $params['pass']);
+
+        $auth = array(
+            'Authorization' => 'Basic ' . $basic
+        );
+
+        $args = array(
+            'headers' => $auth
+        );
+
+        // $streams = new \WP_Http_Streams();
+
+        // $response = $streams->request($url, $args);
+
+        $response = wp_remote_get($url, $args);
+
+        if(isset($response->error_data)){
+            throw new \Exception("The request you made was not valid. Please recheck your Store URL.");
+        }
 
         return self::processResponse($response['body']);
     }
